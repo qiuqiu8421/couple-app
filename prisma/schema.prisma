@@ -1,0 +1,89 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String    @id @default(cuid())
+  username     String    @unique
+  password     String
+  name         String
+  avatar       String?
+  scratchUsed  Boolean   @default(false)
+  posts        Post[]
+  comments     Comment[]
+  likes        Like[]
+  createdAt    DateTime  @default(now())
+}
+
+model Post {
+  id        String    @id @default(cuid())
+  content   String
+  author    User      @relation(fields: [authorId], references: [id])
+  authorId  String
+  media     Media[]
+  comments  Comment[]
+  likes     Like[]
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
+}
+
+model Media {
+  id     String @id @default(cuid())
+  url    String
+  type   String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String
+  createdAt DateTime @default(now())
+}
+
+model Like {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String
+
+  @@unique([userId, postId])
+}
+
+model Album {
+  id          String       @id @default(cuid())
+  name        String
+  description String?
+  cover       String?
+  media       AlbumMedia[]
+  createdAt   DateTime     @default(now())
+  deletedAt   DateTime?
+}
+
+model AlbumMedia {
+  id        String   @id @default(cuid())
+  album     Album    @relation(fields: [albumId], references: [id], onDelete: Cascade)
+  albumId   String
+  url       String
+  type      String
+  caption   String?
+  createdAt DateTime @default(now())
+  deletedAt DateTime?
+}
+
+model Anniversary {
+  id          String   @id @default(cuid())
+  title       String
+  date        DateTime
+  description String?
+  createdAt   DateTime @default(now())
+}
