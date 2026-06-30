@@ -62,7 +62,7 @@ export default function SettingsPage() {
               type="password"
               value={oldPassword}
               onChange={(e) => setOldPassword(e.target.value)}
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-rose-300"
+              className="w-full border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-300"
               required
             />
           </div>
@@ -72,7 +72,7 @@ export default function SettingsPage() {
               type="password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-rose-300"
+              className="w-full border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-300"
               minLength={6}
               required
             />
@@ -83,7 +83,7 @@ export default function SettingsPage() {
               type="password"
               value={confirm}
               onChange={(e) => setConfirm(e.target.value)}
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-rose-300"
+              className="w-full border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-300"
               required
             />
           </div>
@@ -92,7 +92,7 @@ export default function SettingsPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-rose-400 hover:bg-rose-500 text-white rounded-lg py-2 font-medium transition-colors disabled:opacity-50"
+            className="w-full bg-sky-400 hover:bg-sky-500 text-white rounded-lg py-2 font-medium transition-colors disabled:opacity-50"
           >
             {loading ? "提交中..." : "确认修改"}
           </button>

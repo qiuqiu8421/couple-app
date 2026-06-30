@@ -32,9 +32,9 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-rose-50">
+    <div className="min-h-screen flex items-center justify-center bg-sky-50">
       <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-sm">
-        <h1 className="text-2xl font-bold text-rose-500 text-center mb-2">
+        <h1 className="text-2xl font-bold text-sky-500 text-center mb-2">
           Couple Space 💕
         </h1>
         <p className="text-gray-400 text-center text-sm mb-6">我们的小天地</p>
@@ -46,7 +46,7 @@ export default function LoginPage() {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-rose-300"
+              className="w-full border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-300"
               placeholder="请输入用户名"
               required
             />
@@ -57,7 +57,7 @@ export default function LoginPage() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-rose-300"
+              className="w-full border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-300"
               required
             />
           </div>
@@ -65,7 +65,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-rose-400 hover:bg-rose-500 text-white rounded-lg py-2 font-medium transition-colors disabled:opacity-50"
+            className="w-full bg-sky-400 hover:bg-sky-500 text-white rounded-lg py-2 font-medium transition-colors disabled:opacity-50"
           >
             {loading ? "登录中..." : "登录"}
           </button>

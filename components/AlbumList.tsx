@@ -50,7 +50,7 @@ export default function AlbumList() {
         <h2 className="text-lg font-semibold text-gray-700">我们的相册 📷</h2>
         <button
           onClick={() => setShowForm(!showForm)}
-          className="bg-rose-400 hover:bg-rose-500 text-white px-3 py-1.5 rounded-full text-sm transition-colors"
+          className="bg-sky-400 hover:bg-sky-500 text-white px-3 py-1.5 rounded-full text-sm transition-colors"
         >
           + 新建相册
         </button>
@@ -63,17 +63,17 @@ export default function AlbumList() {
             onChange={(e) => setName(e.target.value)}
             placeholder="相册名称"
             required
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-rose-300"
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-300"
           />
           <input
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="描述（可选）"
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-rose-300"
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-300"
           />
           <div className="flex gap-2 justify-end">
             <button type="button" onClick={() => setShowForm(false)} className="text-gray-400 text-sm px-3 py-1.5">取消</button>
-            <button type="submit" className="bg-rose-400 text-white px-4 py-1.5 rounded-full text-sm">创建</button>
+            <button type="submit" className="bg-sky-400 text-white px-4 py-1.5 rounded-full text-sm">创建</button>
           </div>
         </form>
       )}
@@ -83,7 +83,7 @@ export default function AlbumList() {
         <div key={album.id} className="relative">
           <Link href={`/albums/${album.id}`}>
             <div className="bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-              <div className="h-32 bg-rose-100 flex items-center justify-center overflow-hidden">
+              <div className="h-32 bg-sky-100 flex items-center justify-center overflow-hidden">
                 {album.media[0] ? (
                   album.media[0].type === "video" ? (
                     <video src={album.media[0].url} className="w-full h-full object-cover" />

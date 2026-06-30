@@ -18,7 +18,7 @@ export default function Navbar({ userName }: { userName: string }) {
       {/* 顶部栏 */}
       <nav className="bg-white shadow-sm sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
-          <span className="text-rose-500 font-bold text-lg">💕 Couple Space</span>
+          <span className="text-sky-500 font-bold text-lg">💕 Couple Space</span>
           <div className="flex items-center gap-3">
             {/* 桌面端导航 */}
             <div className="hidden sm:flex items-center gap-4">
@@ -28,8 +28,8 @@ export default function Navbar({ userName }: { userName: string }) {
                   href={link.href}
                   className={`text-sm font-medium transition-colors ${
                     pathname === link.href
-                      ? "text-rose-500"
-                      : "text-gray-500 hover:text-rose-400"
+                      ? "text-sky-500"
+                      : "text-gray-500 hover:text-sky-400"
                   }`}
                 >
                   {link.icon} {link.label}
@@ -63,7 +63,7 @@ export default function Navbar({ userName }: { userName: string }) {
               href={link.href}
               className={`flex-1 flex flex-col items-center py-2 text-xs transition-colors ${
                 pathname === link.href
-                  ? "text-rose-500"
+                  ? "text-sky-500"
                   : "text-gray-400"
               }`}
             >
@@ -74,7 +74,7 @@ export default function Navbar({ userName }: { userName: string }) {
           <Link
             href="/settings"
             className={`flex-1 flex flex-col items-center py-2 text-xs transition-colors ${
-              pathname === "/settings" ? "text-rose-500" : "text-gray-400"
+              pathname === "/settings" ? "text-sky-500" : "text-gray-400"
             }`}
           >
             <span className="text-xl">⚙️</span>

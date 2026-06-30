@@ -65,7 +65,7 @@ export default function AlbumDetail({ albumId }: { albumId: string }) {
         </div>
         <button
           onClick={() => fileRef.current?.click()}
-          className="ml-auto bg-rose-400 hover:bg-rose-500 text-white px-3 py-1.5 rounded-full text-sm transition-colors"
+          className="ml-auto bg-sky-400 hover:bg-sky-500 text-white px-3 py-1.5 rounded-full text-sm transition-colors"
         >
           {uploading
             ? uploadProgress.total > 0
@@ -91,7 +91,7 @@ export default function AlbumDetail({ albumId }: { albumId: string }) {
       ) : (
         <div className="grid grid-cols-3 gap-1">
           {album.media.map((m) => (
-            <div key={m.id} className="aspect-square overflow-hidden rounded-lg bg-rose-50 relative group">
+            <div key={m.id} className="aspect-square overflow-hidden rounded-lg bg-sky-50 relative group">
               {m.type === "video" ? (
                 <video src={m.url} className="w-full h-full object-cover" controls playsInline preload="metadata" />
               ) : (

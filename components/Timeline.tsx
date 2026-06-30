@@ -133,7 +133,7 @@ export default function Timeline({ userId }: { userId: string }) {
           <button
             type="button"
             onClick={() => fileRef.current?.click()}
-            className="text-gray-400 hover:text-rose-400 text-sm"
+            className="text-gray-400 hover:text-sky-400 text-sm"
           >
             📎 添加图片/视频
           </button>
@@ -148,7 +148,7 @@ export default function Timeline({ userId }: { userId: string }) {
           <button
             type="submit"
             disabled={uploading || (!content.trim() && files.length === 0)}
-            className="bg-rose-400 hover:bg-rose-500 text-white px-4 py-1.5 rounded-full text-sm font-medium disabled:opacity-50 transition-colors"
+            className="bg-sky-400 hover:bg-sky-500 text-white px-4 py-1.5 rounded-full text-sm font-medium disabled:opacity-50 transition-colors"
           >
             {uploading
               ? uploadProgress.total > 0
@@ -165,7 +165,7 @@ export default function Timeline({ userId }: { userId: string }) {
         return (
           <div key={post.id} className="bg-white rounded-2xl shadow-sm p-4 space-y-3">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-rose-200 flex items-center justify-center text-rose-500 font-bold text-sm">
+              <div className="w-8 h-8 rounded-full bg-sky-200 flex items-center justify-center text-sky-500 font-bold text-sm">
                 {post.author.name[0]}
               </div>
               <div className="flex-1">
@@ -198,13 +198,13 @@ export default function Timeline({ userId }: { userId: string }) {
             <div className="flex items-center gap-4 pt-1 border-t border-gray-50">
               <button
                 onClick={() => handleLike(post.id)}
-                className={`text-sm flex items-center gap-1 transition-colors ${liked ? "text-rose-500" : "text-gray-400 hover:text-rose-400"}`}
+                className={`text-sm flex items-center gap-1 transition-colors ${liked ? "text-sky-500" : "text-gray-400 hover:text-sky-400"}`}
               >
                 {liked ? "❤️" : "🤍"} {post._count.likes}
               </button>
               <button
                 onClick={() => setShowComments((prev) => ({ ...prev, [post.id]: !prev[post.id] }))}
-                className="text-sm text-gray-400 hover:text-rose-400 flex items-center gap-1"
+                className="text-sm text-gray-400 hover:text-sky-400 flex items-center gap-1"
               >
                 💬 {post._count.comments}
               </button>
@@ -223,12 +223,12 @@ export default function Timeline({ userId }: { userId: string }) {
                     value={commentText[post.id] ?? ""}
                     onChange={(e) => setCommentText((prev) => ({ ...prev, [post.id]: e.target.value }))}
                     placeholder="说点什么..."
-                    className="flex-1 border border-gray-100 rounded-full px-3 py-1 text-sm outline-none focus:border-rose-300"
+                    className="flex-1 border border-gray-100 rounded-full px-3 py-1 text-sm outline-none focus:border-sky-300"
                     onKeyDown={(e) => e.key === "Enter" && handleComment(post.id)}
                   />
                   <button
                     onClick={() => handleComment(post.id)}
-                    className="text-rose-400 text-sm font-medium"
+                    className="text-sky-400 text-sm font-medium"
                   >
                     发送
                   </button>

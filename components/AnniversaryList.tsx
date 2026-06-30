@@ -62,10 +62,10 @@ export default function AnniversaryList() {
   return (
     <div className="space-y-4">
       {togetherId && (
-        <div className="bg-rose-400 rounded-2xl p-6 text-white text-center">
-          <p className="text-rose-100 text-sm mb-1">我们已经在一起</p>
+        <div className="bg-sky-400 rounded-2xl p-6 text-white text-center">
+          <p className="text-sky-100 text-sm mb-1">我们已经在一起</p>
           <p className="text-5xl font-bold mb-1">{getDaysTogether(togetherId.date)}</p>
-          <p className="text-rose-100 text-sm">天了 💕</p>
+          <p className="text-sky-100 text-sm">天了 💕</p>
         </div>
       )}
 
@@ -73,7 +73,7 @@ export default function AnniversaryList() {
         <h2 className="text-lg font-semibold text-gray-700">纪念日 💝</h2>
         <button
           onClick={() => setShowForm(!showForm)}
-          className="bg-rose-400 hover:bg-rose-500 text-white px-3 py-1.5 rounded-full text-sm transition-colors"
+          className="bg-sky-400 hover:bg-sky-500 text-white px-3 py-1.5 rounded-full text-sm transition-colors"
         >
           + 添加
         </button>
@@ -86,24 +86,24 @@ export default function AnniversaryList() {
             onChange={(e) => setTitle(e.target.value)}
             placeholder="纪念日名称"
             required
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-rose-300"
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-300"
           />
           <input
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
             required
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-rose-300"
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-300"
           />
           <input
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="备注（可选）"
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-rose-300"
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-300"
           />
           <div className="flex gap-2 justify-end">
             <button type="button" onClick={() => setShowForm(false)} className="text-gray-400 text-sm px-3 py-1.5">取消</button>
-            <button type="submit" className="bg-rose-400 text-white px-4 py-1.5 rounded-full text-sm">添加</button>
+            <button type="submit" className="bg-sky-400 text-white px-4 py-1.5 rounded-full text-sm">添加</button>
           </div>
         </form>
       )}
@@ -121,7 +121,7 @@ export default function AnniversaryList() {
                 </p>
               </div>
               <div className="text-right">
-                <p className="text-2xl font-bold text-rose-400">{countdown}</p>
+                <p className="text-2xl font-bold text-sky-400">{countdown}</p>
                 <p className="text-xs text-gray-400">天后</p>
               </div>
             </div>
