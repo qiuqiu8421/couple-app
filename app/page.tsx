@@ -10,7 +10,7 @@ export default async function Home() {
   return (
     <>
       <Navbar userName={session.user?.name ?? ""} />
-      <main className="max-w-2xl mx-auto px-4 py-6 pb-20 sm:pb-6 space-y-4">
+      <main className="farm-shell space-y-4">
         <Timeline userId={session.user?.id as string} />
       </main>
     </>

@@ -43,61 +43,57 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8 pb-24 sm:pb-8">
-      <div className="flex items-center gap-3 mb-6">
-        <button
-          onClick={() => router.back()}
-          className="text-gray-400 hover:text-gray-600 text-sm"
-        >
+    <main className="farm-shell">
+      <div className="mb-4 flex items-center gap-3">
+        <button onClick={() => router.back()} className="pixel-button pixel-button-secondary px-3 py-1.5 text-sm">
           ← 返回
         </button>
-        <h1 className="text-lg font-semibold text-gray-700">修改密码</h1>
+        <div>
+          <h1 className="farm-title text-lg">修改密码</h1>
+          <p className="farm-muted text-xs">给小屋换一把新钥匙</p>
+        </div>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm p-6">
+      <div className="pixel-panel p-6">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm text-gray-600 mb-1">原密码</label>
+            <label className="mb-1 block text-sm font-bold text-[#5e3822]">原密码</label>
             <input
               type="password"
               value={oldPassword}
               onChange={(e) => setOldPassword(e.target.value)}
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-300"
+              className="pixel-input px-3 py-2"
               required
             />
           </div>
           <div>
-            <label className="block text-sm text-gray-600 mb-1">新密码</label>
+            <label className="mb-1 block text-sm font-bold text-[#5e3822]">新密码</label>
             <input
               type="password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-300"
+              className="pixel-input px-3 py-2"
               minLength={6}
               required
             />
           </div>
           <div>
-            <label className="block text-sm text-gray-600 mb-1">确认新密码</label>
+            <label className="mb-1 block text-sm font-bold text-[#5e3822]">确认新密码</label>
             <input
               type="password"
               value={confirm}
               onChange={(e) => setConfirm(e.target.value)}
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-300"
+              className="pixel-input px-3 py-2"
               required
             />
           </div>
-          {error && <p className="text-red-400 text-sm">{error}</p>}
-          {success && <p className="text-green-500 text-sm">密码修改成功！</p>}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-sky-400 hover:bg-sky-500 text-white rounded-lg py-2 font-medium transition-colors disabled:opacity-50"
-          >
+          {error && <p className="text-sm font-bold text-red-500">{error}</p>}
+          {success && <p className="text-sm font-bold text-green-700">密码修改成功！</p>}
+          <button type="submit" disabled={loading} className="pixel-button w-full px-4 py-2">
             {loading ? "提交中..." : "确认修改"}
           </button>
         </form>
       </div>
-    </div>
+    </main>
   );
 }

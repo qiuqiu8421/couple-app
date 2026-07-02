@@ -8,45 +8,45 @@ export default function Navbar({ userName }: { userName: string }) {
   const pathname = usePathname();
 
   const links = [
-    { href: "/", label: "动态", icon: "🏠" },
-    { href: "/albums", label: "相册", icon: "📷" },
-    { href: "/anniversaries", label: "纪念日", icon: "💝" },
+    { href: "/", label: "小屋", icon: "🏡" },
+    { href: "/albums", label: "相册", icon: "🖼️" },
+    { href: "/anniversaries", label: "日历", icon: "🌻" },
   ];
 
   return (
     <>
-      {/* 顶部栏 */}
-      <nav className="bg-white shadow-sm sticky top-0 z-10">
-        <div className="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
-          <span className="text-sky-500 font-bold text-lg">💕 Couple Space</span>
+      <nav className="sticky top-0 z-10 border-b-4 border-[#5e3822] bg-[#c78642]/95 shadow-[0_4px_0_rgba(63,42,24,0.25)] backdrop-blur-sm">
+        <div className="mx-auto flex max-w-2xl items-center justify-between px-4 py-3">
+          <span className="farm-title text-lg text-[#fff2cc] [text-shadow:2px_2px_0_#5e3822]">
+            🌾 Couple Farm
+          </span>
           <div className="flex items-center gap-3">
-            {/* 桌面端导航 */}
-            <div className="hidden sm:flex items-center gap-4">
+            <div className="hidden items-center gap-4 sm:flex">
               {links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`text-sm font-medium transition-colors ${
+                  className={`rounded px-2 py-1 text-sm font-bold transition-colors ${
                     pathname === link.href
-                      ? "text-sky-500"
-                      : "text-gray-500 hover:text-sky-400"
+                      ? "bg-[#fff2cc] text-[#5e3822]"
+                      : "text-[#fff9dc] hover:bg-[#a96d36]"
                   }`}
                 >
                   {link.icon} {link.label}
                 </Link>
               ))}
             </div>
-            <span className="text-gray-400 text-sm hidden sm:inline">{userName}</span>
+            <span className="hidden text-sm font-bold text-[#fff9dc] sm:inline">{userName}</span>
             <Link
               href="/settings"
               title="修改密码"
-              className="text-gray-400 hover:text-gray-600 text-xs border border-gray-200 rounded-full px-2 py-1 hidden sm:inline-block"
+              className="hidden rounded border-2 border-[#5e3822] bg-[#fff2cc] px-2 py-1 text-xs font-bold text-[#5e3822] shadow-[0_2px_0_#5e3822] hover:bg-white sm:inline-block"
             >
               改密码
             </Link>
             <button
               onClick={() => signOut({ callbackUrl: "/login" })}
-              className="text-gray-400 hover:text-gray-600 text-xs border border-gray-200 rounded-full px-2 py-1"
+              className="rounded border-2 border-[#5e3822] bg-[#fff2cc] px-2 py-1 text-xs font-bold text-[#5e3822] shadow-[0_2px_0_#5e3822] hover:bg-white"
             >
               退出
             </button>
@@ -54,17 +54,14 @@ export default function Navbar({ userName }: { userName: string }) {
         </div>
       </nav>
 
-      {/* 手机底部导航栏 */}
-      <div className="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 z-10 safe-area-inset-bottom">
+      <div className="fixed bottom-0 left-0 right-0 z-10 border-t-4 border-[#5e3822] bg-[#fff2cc] shadow-[0_-4px_0_rgba(63,42,24,0.18)] sm:hidden">
         <div className="flex">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`flex-1 flex flex-col items-center py-2 text-xs transition-colors ${
-                pathname === link.href
-                  ? "text-sky-500"
-                  : "text-gray-400"
+              className={`flex flex-1 flex-col items-center py-2 text-xs font-bold transition-colors ${
+                pathname === link.href ? "bg-[#7ebc59] text-white" : "text-[#5e3822]"
               }`}
             >
               <span className="text-xl">{link.icon}</span>
@@ -73,8 +70,8 @@ export default function Navbar({ userName }: { userName: string }) {
           ))}
           <Link
             href="/settings"
-            className={`flex-1 flex flex-col items-center py-2 text-xs transition-colors ${
-              pathname === "/settings" ? "text-sky-500" : "text-gray-400"
+            className={`flex flex-1 flex-col items-center py-2 text-xs font-bold transition-colors ${
+              pathname === "/settings" ? "bg-[#7ebc59] text-white" : "text-[#5e3822]"
             }`}
           >
             <span className="text-xl">⚙️</span>

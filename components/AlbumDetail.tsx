@@ -17,25 +17,25 @@ export default function AlbumDetail({ albumId }: { albumId: string }) {
     setAlbum(await res.json());
   }, [albumId]);
 
-  useEffect(() => { fetchAlbum(); }, [fetchAlbum]);
+  useEffect(() => {
+    fetchAlbum();
+  }, [fetchAlbum]);
 
   async function handleUpload(files: FileList) {
     setUploading(true);
     setUploadProgress({ done: 0, total: files.length });
 
-    // 并行上传所有文件
     const uploaded = await Promise.all(
       Array.from(files).map(async (file) => {
         const fd = new FormData();
         fd.append("file", file);
         const uploadRes = await fetch("/api/upload", { method: "POST", body: fd });
-        const result = await uploadRes.json() as { url: string; type: string };
+        const result = (await uploadRes.json()) as { url: string; type: string };
         setUploadProgress((prev) => ({ ...prev, done: prev.done + 1 }));
         return result;
       })
     );
 
-    // 批量同步到服务器相册
     await fetch(`/api/albums/${albumId}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -53,20 +53,19 @@ export default function AlbumDetail({ albumId }: { albumId: string }) {
     fetchAlbum();
   }
 
-  if (!album) return <div className="text-center text-gray-400 py-10">加载中...</div>;
+  if (!album) return <div className="pixel-panel p-8 text-center farm-muted">加载中...</div>;
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-3">
-        <Link href="/albums" className="text-gray-400 hover:text-gray-600">←</Link>
-        <div>
-          <h2 className="text-lg font-semibold text-gray-700">{album.name}</h2>
-          {album.description && <p className="text-sm text-gray-400">{album.description}</p>}
+      <div className="pixel-panel flex items-center gap-3 p-4">
+        <Link href="/albums" className="pixel-button pixel-button-secondary h-8 w-8 text-sm">
+          ←
+        </Link>
+        <div className="min-w-0 flex-1">
+          <h2 className="farm-title truncate text-lg">{album.name}</h2>
+          {album.description && <p className="farm-muted truncate text-sm">{album.description}</p>}
         </div>
-        <button
-          onClick={() => fileRef.current?.click()}
-          className="ml-auto bg-sky-400 hover:bg-sky-500 text-white px-3 py-1.5 rounded-full text-sm transition-colors"
-        >
+        <button onClick={() => fileRef.current?.click()} className="pixel-button px-3 py-1.5 text-sm">
           {uploading
             ? uploadProgress.total > 0
               ? `上传中 ${uploadProgress.done}/${uploadProgress.total}...`
@@ -84,24 +83,26 @@ export default function AlbumDetail({ albumId }: { albumId: string }) {
       </div>
 
       {album.media.length === 0 ? (
-        <div className="text-center py-16 text-gray-300">
-          <p className="text-4xl mb-2">📷</p>
-          <p>还没有照片，快去添加吧</p>
+        <div className="pixel-panel p-12 text-center">
+          <p className="mb-2 text-4xl">🧺</p>
+          <p className="farm-muted text-sm">还没有照片，快去添加吧</p>
         </div>
       ) : (
-        <div className="grid grid-cols-3 gap-1">
+        <div className="grid grid-cols-3 gap-2">
           {album.media.map((m) => (
-            <div key={m.id} className="aspect-square overflow-hidden rounded-lg bg-sky-50 relative group">
+            <div key={m.id} className="pixel-media-tile group relative aspect-square overflow-hidden">
               {m.type === "video" ? (
-                <video src={m.url} className="w-full h-full object-cover" controls playsInline preload="metadata" />
+                <video src={m.url} className="h-full w-full object-cover" controls playsInline preload="metadata" />
               ) : (
-                <img src={m.url} alt={m.caption ?? ""} className="w-full h-full object-cover" />
+                <img src={m.url} alt={m.caption ?? ""} className="h-full w-full object-cover" />
               )}
               <button
                 onClick={() => handleDeleteMedia(m.id)}
-                className="absolute top-1 right-1 bg-black/40 hover:bg-red-500 text-white rounded-full w-6 h-6 text-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                className="pixel-button pixel-button-danger absolute right-1 top-1 h-6 w-6 text-sm opacity-0 transition-opacity group-hover:opacity-100"
                 title="删除"
-              >×</button>
+              >
+                ×
+              </button>
             </div>
           ))}
         </div>

@@ -42,7 +42,6 @@ export default function Timeline({ userId }: { userId: string }) {
     setUploading(true);
     setUploadProgress({ done: 0, total: files.length });
 
-    // 并行上传所有文件到服务器
     const uploadedMedia = await Promise.all(
       files.map(async (file) => {
         const fd = new FormData();
@@ -102,38 +101,46 @@ export default function Timeline({ userId }: { userId: string }) {
 
   return (
     <div className="space-y-4">
-      {/* Post composer */}
-      <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm p-4 space-y-3">
+      <form onSubmit={handleSubmit} className="pixel-panel p-4 space-y-3">
+        <div className="flex items-center gap-2">
+          <span className="pixel-avatar">✎</span>
+          <div>
+            <h2 className="farm-title text-base">农场留言板</h2>
+            <p className="farm-muted text-xs">记录今天的小事</p>
+          </div>
+        </div>
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          placeholder="记录今天的小确幸..."
-          className="w-full resize-none border-none outline-none text-gray-700 placeholder-gray-300 text-sm"
+          placeholder="写下今天的小确幸..."
+          className="pixel-input min-h-24 resize-none px-3 py-2 text-sm"
           rows={3}
         />
         {files.length > 0 && (
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex flex-wrap gap-2">
             {files.map((f, i) => (
               <div key={i} className="relative">
                 {f.type.startsWith("video") ? (
-                  <video src={URL.createObjectURL(f)} className="h-16 w-16 object-cover rounded-lg" playsInline preload="metadata" />
+                  <video src={URL.createObjectURL(f)} className="h-16 w-16 rounded object-cover" playsInline preload="metadata" />
                 ) : (
-                  <img src={URL.createObjectURL(f)} className="h-16 w-16 object-cover rounded-lg" alt="" />
+                  <img src={URL.createObjectURL(f)} className="h-16 w-16 rounded object-cover" alt="" />
                 )}
                 <button
                   type="button"
                   onClick={() => setFiles(files.filter((_, j) => j !== i))}
-                  className="absolute -top-1 -right-1 bg-gray-500 text-white rounded-full w-4 h-4 text-xs flex items-center justify-center"
-                >×</button>
+                  className="pixel-button pixel-button-danger absolute -right-1 -top-1 h-5 w-5 text-xs"
+                >
+                  ×
+                </button>
               </div>
             ))}
           </div>
         )}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-3">
           <button
             type="button"
             onClick={() => fileRef.current?.click()}
-            className="text-gray-400 hover:text-sky-400 text-sm"
+            className="pixel-button pixel-button-secondary px-3 py-1.5 text-sm"
           >
             📎 添加图片/视频
           </button>
@@ -148,7 +155,7 @@ export default function Timeline({ userId }: { userId: string }) {
           <button
             type="submit"
             disabled={uploading || (!content.trim() && files.length === 0)}
-            className="bg-sky-400 hover:bg-sky-500 text-white px-4 py-1.5 rounded-full text-sm font-medium disabled:opacity-50 transition-colors"
+            className="pixel-button px-4 py-1.5 text-sm"
           >
             {uploading
               ? uploadProgress.total > 0
@@ -159,52 +166,51 @@ export default function Timeline({ userId }: { userId: string }) {
         </div>
       </form>
 
-      {/* Posts */}
       {posts.map((post) => {
         const liked = post.likes.some((l) => l.userId === userId);
         return (
-          <div key={post.id} className="bg-white rounded-2xl shadow-sm p-4 space-y-3">
+          <div key={post.id} className="pixel-panel-soft p-4 space-y-3">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-sky-200 flex items-center justify-center text-sky-500 font-bold text-sm">
-                {post.author.name[0]}
-              </div>
+              <div className="pixel-avatar">{post.author.name[0]}</div>
               <div className="flex-1">
-                <p className="text-sm font-medium text-gray-700">{post.author.name}</p>
-                <p className="text-xs text-gray-400">{formatDate(post.createdAt)}</p>
+                <p className="text-sm font-bold text-[#5e3822]">{post.author.name}</p>
+                <p className="farm-muted text-xs">{formatDate(post.createdAt)}</p>
               </div>
               {post.author.id === userId && (
                 <button
                   onClick={() => handleDelete(post.id)}
-                  className="text-gray-300 hover:text-red-400 text-xl leading-none transition-colors"
+                  className="pixel-button pixel-button-danger h-7 w-7 text-sm"
                   title="删除"
-                >×</button>
+                >
+                  ×
+                </button>
               )}
             </div>
 
-            {post.content && <p className="text-gray-700 text-sm">{post.content}</p>}
+            {post.content && <p className="text-sm leading-6 text-[#3f2a18]">{post.content}</p>}
 
             {post.media.length > 0 && (
-              <div className={`grid gap-1 ${post.media.length === 1 ? "" : "grid-cols-2"}`}>
+              <div className={`grid gap-2 ${post.media.length === 1 ? "" : "grid-cols-2"}`}>
                 {post.media.map((m) =>
                   m.type === "video" ? (
-                    <video key={m.id} src={m.url} controls playsInline preload="metadata" className="w-full rounded-lg max-h-64 object-cover" />
+                    <video key={m.id} src={m.url} controls playsInline preload="metadata" className="pixel-media-tile max-h-64 w-full object-cover" />
                   ) : (
-                    <img key={m.id} src={m.url} alt="" className="w-full rounded-lg object-cover max-h-64" />
+                    <img key={m.id} src={m.url} alt="" className="pixel-media-tile max-h-64 w-full object-cover" />
                   )
                 )}
               </div>
             )}
 
-            <div className="flex items-center gap-4 pt-1 border-t border-gray-50">
+            <div className="flex items-center gap-3 border-t-2 border-[#d8b56a] pt-2">
               <button
                 onClick={() => handleLike(post.id)}
-                className={`text-sm flex items-center gap-1 transition-colors ${liked ? "text-sky-500" : "text-gray-400 hover:text-sky-400"}`}
+                className={`text-sm font-bold transition-colors ${liked ? "text-[#c65b4a]" : "text-[#7b5a3b] hover:text-[#c65b4a]"}`}
               >
                 {liked ? "❤️" : "🤍"} {post._count.likes}
               </button>
               <button
                 onClick={() => setShowComments((prev) => ({ ...prev, [post.id]: !prev[post.id] }))}
-                className="text-sm text-gray-400 hover:text-sky-400 flex items-center gap-1"
+                className="text-sm font-bold text-[#7b5a3b] hover:text-[#4f8b3b]"
               >
                 💬 {post._count.comments}
               </button>
@@ -213,23 +219,20 @@ export default function Timeline({ userId }: { userId: string }) {
             {showComments[post.id] && (
               <div className="space-y-2">
                 {post.comments.map((c) => (
-                  <div key={c.id} className="flex gap-2 text-sm">
-                    <span className="font-medium text-gray-600">{c.author.name}:</span>
-                    <span className="text-gray-500">{c.content}</span>
+                  <div key={c.id} className="rounded bg-[#fff2cc] px-3 py-2 text-sm">
+                    <span className="font-bold text-[#5e3822]">{c.author.name}：</span>
+                    <span className="text-[#3f2a18]">{c.content}</span>
                   </div>
                 ))}
-                <div className="flex gap-2 mt-2">
+                <div className="mt-2 flex gap-2">
                   <input
                     value={commentText[post.id] ?? ""}
                     onChange={(e) => setCommentText((prev) => ({ ...prev, [post.id]: e.target.value }))}
                     placeholder="说点什么..."
-                    className="flex-1 border border-gray-100 rounded-full px-3 py-1 text-sm outline-none focus:border-sky-300"
+                    className="pixel-input flex-1 px-3 py-1.5 text-sm"
                     onKeyDown={(e) => e.key === "Enter" && handleComment(post.id)}
                   />
-                  <button
-                    onClick={() => handleComment(post.id)}
-                    className="text-sky-400 text-sm font-medium"
-                  >
+                  <button onClick={() => handleComment(post.id)} className="pixel-button px-3 py-1.5 text-sm">
                     发送
                   </button>
                 </div>

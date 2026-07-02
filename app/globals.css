@@ -1,8 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8e7b9;
+  --foreground: #3f2a18;
+  --farm-sky: #8fd3ff;
+  --farm-sky-deep: #5eb5e7;
+  --farm-grass: #7ebc59;
+  --farm-grass-dark: #4f8b3b;
+  --farm-earth: #9a6236;
+  --farm-earth-dark: #5e3822;
+  --farm-wood: #c78642;
+  --farm-cream: #fff2cc;
+  --farm-paper: #fff7dc;
+  --farm-gold: #f1c84b;
+  --farm-red: #c65b4a;
+  --farm-shadow: rgba(63, 42, 24, 0.28);
 }
 
 @theme inline {
@@ -12,15 +24,175 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Trebuchet MS", "Microsoft YaHei", "PingFang SC", Arial, Helvetica, sans-serif;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.farm-page {
+  min-height: 100vh;
+  background:
+    linear-gradient(180deg, rgba(143, 211, 255, 0.88) 0 220px, transparent 220px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.18) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1px),
+    linear-gradient(180deg, #f8e7b9 0%, #e7c177 52%, #8fbd5a 100%);
+  background-size: auto, 24px 24px, 24px 24px, auto;
+}
+
+.farm-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 80px, rgba(255, 255, 255, 0.78) 0 24px, transparent 25px),
+    radial-gradient(circle at 24% 80px, rgba(255, 255, 255, 0.7) 0 18px, transparent 19px),
+    radial-gradient(circle at 76% 120px, rgba(255, 255, 255, 0.62) 0 20px, transparent 21px),
+    linear-gradient(90deg, transparent 0 10px, rgba(94, 56, 34, 0.08) 10px 12px, transparent 12px 24px);
+  background-size: auto, auto, auto, 24px 24px;
+}
+
+.farm-shell {
+  position: relative;
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 5.5rem;
+}
+
+@media (min-width: 640px) {
+  .farm-shell {
+    padding-bottom: 1.5rem;
+  }
+}
+
+.pixel-panel {
+  background: var(--farm-paper);
+  border: 3px solid var(--farm-earth-dark);
+  border-radius: 6px;
+  box-shadow: 0 5px 0 var(--farm-shadow), inset 0 0 0 2px rgba(255, 255, 255, 0.38);
+}
+
+.pixel-panel-soft {
+  background: rgba(255, 247, 220, 0.94);
+  border: 2px solid rgba(94, 56, 34, 0.58);
+  border-radius: 6px;
+  box-shadow: 0 4px 0 rgba(94, 56, 34, 0.18);
+}
+
+.pixel-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  background: var(--farm-grass);
+  color: #fff9dc;
+  border: 2px solid var(--farm-earth-dark);
+  border-radius: 4px;
+  box-shadow: 0 3px 0 var(--farm-earth-dark);
+  font-weight: 700;
+  transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
+}
+
+.pixel-button:hover {
+  filter: brightness(1.04);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 0 var(--farm-earth-dark);
+}
+
+.pixel-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--farm-earth-dark);
+}
+
+.pixel-button:disabled {
+  cursor: not-allowed;
+  filter: grayscale(0.4);
+  opacity: 0.65;
+}
+
+.pixel-button-secondary {
+  background: var(--farm-wood);
+}
+
+.pixel-button-danger {
+  background: var(--farm-red);
+}
+
+.pixel-input {
+  width: 100%;
+  background: #fff9e6;
+  color: var(--farm-earth-dark);
+  border: 2px solid rgba(94, 56, 34, 0.55);
+  border-radius: 4px;
+  outline: none;
+}
+
+.pixel-input:focus {
+  border-color: var(--farm-grass-dark);
+  box-shadow: 0 0 0 3px rgba(126, 188, 89, 0.25);
+}
+
+.pixel-link {
+  color: var(--farm-earth-dark);
+  font-weight: 700;
+  transition: color 120ms ease;
+}
+
+.pixel-link:hover {
+  color: var(--farm-grass-dark);
+}
+
+.pixel-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  background: var(--farm-gold);
+  color: var(--farm-earth-dark);
+  border: 2px solid var(--farm-earth-dark);
+  border-radius: 4px;
+  box-shadow: 0 2px 0 rgba(94, 56, 34, 0.34);
+  font-weight: 800;
+}
+
+.farm-title {
+  color: var(--farm-earth-dark);
+  font-weight: 800;
+  letter-spacing: 0;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.farm-muted {
+  color: #7b5a3b;
+}
+
+.farm-hero {
+  background:
+    linear-gradient(135deg, rgba(255, 249, 230, 0.22), rgba(255, 249, 230, 0)),
+    linear-gradient(180deg, var(--farm-grass), var(--farm-grass-dark));
+  color: #fff9dc;
+  border: 3px solid var(--farm-earth-dark);
+  border-radius: 6px;
+  box-shadow: 0 5px 0 var(--farm-shadow);
+}
+
+.pixel-media-tile {
+  background:
+    linear-gradient(45deg, rgba(94, 56, 34, 0.12) 25%, transparent 25% 75%, rgba(94, 56, 34, 0.12) 75%),
+    #ead39b;
+  background-size: 16px 16px;
+  border: 2px solid rgba(94, 56, 34, 0.45);
+  border-radius: 4px;
 }

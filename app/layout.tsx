@@ -4,8 +4,8 @@ import "./globals.css";
 import Providers from "@/components/Providers";
 
 export const metadata: Metadata = {
-  title: "Couple Space",
-  description: "A private shared space",
+  title: "Couple Farm",
+  description: "A private shared farm-style space",
 };
 
 export const viewport: Viewport = {
@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh">
-      <body className="min-h-screen bg-sky-50">
+      <body className="farm-page">
         <Providers>{children}</Providers>
       </body>
     </html>

@@ -22,7 +22,9 @@ export default function AlbumList() {
     setAlbums(await res.json());
   }, []);
 
-  useEffect(() => { fetchAlbums(); }, [fetchAlbums]);
+  useEffect(() => {
+    fetchAlbums();
+  }, [fetchAlbums]);
 
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
@@ -47,65 +49,71 @@ export default function AlbumList() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-700">我们的相册 📷</h2>
-        <button
-          onClick={() => setShowForm(!showForm)}
-          className="bg-sky-400 hover:bg-sky-500 text-white px-3 py-1.5 rounded-full text-sm transition-colors"
-        >
+        <div>
+          <h2 className="farm-title text-lg">相册谷仓</h2>
+          <p className="farm-muted text-xs">把照片收进小木箱</p>
+        </div>
+        <button onClick={() => setShowForm(!showForm)} className="pixel-button px-3 py-1.5 text-sm">
           + 新建相册
         </button>
       </div>
 
       {showForm && (
-        <form onSubmit={handleCreate} className="bg-white rounded-2xl shadow-sm p-4 space-y-3">
+        <form onSubmit={handleCreate} className="pixel-panel p-4 space-y-3">
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="相册名称"
             required
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-300"
+            className="pixel-input px-3 py-2 text-sm"
           />
           <input
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="描述（可选）"
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-300"
+            className="pixel-input px-3 py-2 text-sm"
           />
-          <div className="flex gap-2 justify-end">
-            <button type="button" onClick={() => setShowForm(false)} className="text-gray-400 text-sm px-3 py-1.5">取消</button>
-            <button type="submit" className="bg-sky-400 text-white px-4 py-1.5 rounded-full text-sm">创建</button>
+          <div className="flex justify-end gap-2">
+            <button type="button" onClick={() => setShowForm(false)} className="pixel-button pixel-button-secondary px-3 py-1.5 text-sm">
+              取消
+            </button>
+            <button type="submit" className="pixel-button px-4 py-1.5 text-sm">
+              创建
+            </button>
           </div>
         </form>
       )}
 
       <div className="grid grid-cols-2 gap-3">
         {albums.map((album) => (
-        <div key={album.id} className="relative">
-          <Link href={`/albums/${album.id}`}>
-            <div className="bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-              <div className="h-32 bg-sky-100 flex items-center justify-center overflow-hidden">
-                {album.media[0] ? (
-                  album.media[0].type === "video" ? (
-                    <video src={album.media[0].url} className="w-full h-full object-cover" />
+          <div key={album.id} className="relative">
+            <Link href={`/albums/${album.id}`}>
+              <div className="pixel-panel-soft overflow-hidden transition-transform hover:-translate-y-0.5">
+                <div className="pixel-media-tile flex h-32 items-center justify-center overflow-hidden border-0">
+                  {album.media[0] ? (
+                    album.media[0].type === "video" ? (
+                      <video src={album.media[0].url} className="h-full w-full object-cover" />
+                    ) : (
+                      <img src={album.media[0].url} alt="" className="h-full w-full object-cover" />
+                    )
                   ) : (
-                    <img src={album.media[0].url} alt="" className="w-full h-full object-cover" />
-                  )
-                ) : (
-                  <span className="text-4xl">📷</span>
-                )}
+                    <span className="text-4xl">🧺</span>
+                  )}
+                </div>
+                <div className="p-3">
+                  <p className="truncate text-sm font-bold text-[#5e3822]">{album.name}</p>
+                  <p className="farm-muted text-xs">{album._count.media} 张</p>
+                </div>
               </div>
-              <div className="p-3">
-                <p className="font-medium text-gray-700 text-sm">{album.name}</p>
-                <p className="text-xs text-gray-400">{album._count.media} 张</p>
-              </div>
-            </div>
-          </Link>
-          <button
-            onClick={(e) => handleDelete(album.id, e)}
-            className="absolute top-2 right-2 bg-black/40 hover:bg-red-500 text-white rounded-full w-6 h-6 text-sm flex items-center justify-center transition-colors"
-            title="删除相册"
-          >×</button>
-        </div>
+            </Link>
+            <button
+              onClick={(e) => handleDelete(album.id, e)}
+              className="pixel-button pixel-button-danger absolute right-2 top-2 h-6 w-6 text-sm"
+              title="删除相册"
+            >
+              ×
+            </button>
+          </div>
         ))}
       </div>
     </div>

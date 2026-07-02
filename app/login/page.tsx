@@ -32,41 +32,35 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-sky-50">
-      <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-sm">
-        <h1 className="text-2xl font-bold text-sky-500 text-center mb-2">
-          Couple Space 💕
-        </h1>
-        <p className="text-gray-400 text-center text-sm mb-6">我们的小天地</p>
+    <div className="flex min-h-screen items-center justify-center px-4 py-8">
+      <div className="pixel-panel w-full max-w-sm p-6">
+        <h1 className="farm-title mb-2 text-center text-2xl">🌾 Couple Farm</h1>
+        <p className="farm-muted mb-6 text-center text-sm">我们的小农场</p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm text-gray-600 mb-1">用户名</label>
+            <label className="mb-1 block text-sm font-bold text-[#5e3822]">用户名</label>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-300"
+              className="pixel-input px-3 py-2"
               placeholder="请输入用户名"
               required
             />
           </div>
           <div>
-            <label className="block text-sm text-gray-600 mb-1">密码</label>
+            <label className="mb-1 block text-sm font-bold text-[#5e3822]">密码</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-300"
+              className="pixel-input px-3 py-2"
               required
             />
           </div>
-          {error && <p className="text-red-400 text-sm">{error}</p>}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-sky-400 hover:bg-sky-500 text-white rounded-lg py-2 font-medium transition-colors disabled:opacity-50"
-          >
+          {error && <p className="text-sm font-bold text-red-500">{error}</p>}
+          <button type="submit" disabled={loading} className="pixel-button w-full px-4 py-2">
             {loading ? "登录中..." : "登录"}
           </button>
         </form>

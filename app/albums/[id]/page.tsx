@@ -12,7 +12,7 @@ export default async function AlbumPage({ params }: { params: Promise<{ id: stri
   return (
     <>
       <Navbar userName={session.user?.name ?? ""} />
-      <main className="max-w-2xl mx-auto px-4 py-6 pb-20 sm:pb-6">
+      <main className="farm-shell">
         <AlbumDetail albumId={id} />
       </main>
     </>

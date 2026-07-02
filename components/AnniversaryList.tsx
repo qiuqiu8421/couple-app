@@ -12,17 +12,13 @@ type Anniversary = {
 function getCountdown(dateStr: string) {
   const now = new Date();
   const target = new Date(dateStr);
-
-  // Set to this year
   const thisYear = new Date(target);
   thisYear.setFullYear(now.getFullYear());
 
-  // If already passed this year, use next year
   if (thisYear < now) thisYear.setFullYear(now.getFullYear() + 1);
 
   const diff = thisYear.getTime() - now.getTime();
-  const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-  return days;
+  return Math.ceil(diff / (1000 * 60 * 60 * 24));
 }
 
 function getDaysTogether(dateStr: string) {
@@ -43,7 +39,9 @@ export default function AnniversaryList() {
     setAnniversaries(await res.json());
   }, []);
 
-  useEffect(() => { fetchAnniversaries(); }, [fetchAnniversaries]);
+  useEffect(() => {
+    fetchAnniversaries();
+  }, [fetchAnniversaries]);
 
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
@@ -52,58 +50,64 @@ export default function AnniversaryList() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title, date, description }),
     });
-    setTitle(""); setDate(""); setDescription("");
+    setTitle("");
+    setDate("");
+    setDescription("");
     setShowForm(false);
     fetchAnniversaries();
   }
 
-  const togetherId = anniversaries.find(a => a.title === "在一起纪念日");
+  const togetherId = anniversaries.find((a) => a.title === "在一起纪念日");
 
   return (
     <div className="space-y-4">
       {togetherId && (
-        <div className="bg-sky-400 rounded-2xl p-6 text-white text-center">
-          <p className="text-sky-100 text-sm mb-1">我们已经在一起</p>
-          <p className="text-5xl font-bold mb-1">{getDaysTogether(togetherId.date)}</p>
-          <p className="text-sky-100 text-sm">天了 💕</p>
+        <div className="farm-hero p-6 text-center">
+          <p className="text-sm font-bold text-[#fff2cc]">我们已经在一起</p>
+          <p className="my-1 text-5xl font-black">{getDaysTogether(togetherId.date)}</p>
+          <p className="text-sm font-bold text-[#fff2cc]">天了 ❤️</p>
         </div>
       )}
 
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-700">纪念日 💝</h2>
-        <button
-          onClick={() => setShowForm(!showForm)}
-          className="bg-sky-400 hover:bg-sky-500 text-white px-3 py-1.5 rounded-full text-sm transition-colors"
-        >
+        <div>
+          <h2 className="farm-title text-lg">纪念日日历</h2>
+          <p className="farm-muted text-xs">重要日子都种在这里</p>
+        </div>
+        <button onClick={() => setShowForm(!showForm)} className="pixel-button px-3 py-1.5 text-sm">
           + 添加
         </button>
       </div>
 
       {showForm && (
-        <form onSubmit={handleCreate} className="bg-white rounded-2xl shadow-sm p-4 space-y-3">
+        <form onSubmit={handleCreate} className="pixel-panel p-4 space-y-3">
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="纪念日名称"
             required
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-300"
+            className="pixel-input px-3 py-2 text-sm"
           />
           <input
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
             required
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-300"
+            className="pixel-input px-3 py-2 text-sm"
           />
           <input
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="备注（可选）"
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-300"
+            className="pixel-input px-3 py-2 text-sm"
           />
-          <div className="flex gap-2 justify-end">
-            <button type="button" onClick={() => setShowForm(false)} className="text-gray-400 text-sm px-3 py-1.5">取消</button>
-            <button type="submit" className="bg-sky-400 text-white px-4 py-1.5 rounded-full text-sm">添加</button>
+          <div className="flex justify-end gap-2">
+            <button type="button" onClick={() => setShowForm(false)} className="pixel-button pixel-button-secondary px-3 py-1.5 text-sm">
+              取消
+            </button>
+            <button type="submit" className="pixel-button px-4 py-1.5 text-sm">
+              添加
+            </button>
           </div>
         </form>
       )}
@@ -112,17 +116,15 @@ export default function AnniversaryList() {
         {anniversaries.map((a) => {
           const countdown = getCountdown(a.date);
           return (
-            <div key={a.id} className="bg-white rounded-2xl shadow-sm p-4 flex items-center justify-between">
-              <div>
-                <p className="font-medium text-gray-700">{a.title}</p>
-                {a.description && <p className="text-xs text-gray-400 mt-0.5">{a.description}</p>}
-                <p className="text-xs text-gray-400 mt-0.5">
-                  {new Date(a.date).toLocaleDateString("zh-CN")}
-                </p>
+            <div key={a.id} className="pixel-panel-soft flex items-center justify-between p-4">
+              <div className="min-w-0">
+                <p className="truncate font-bold text-[#5e3822]">{a.title}</p>
+                {a.description && <p className="farm-muted mt-0.5 truncate text-xs">{a.description}</p>}
+                <p className="farm-muted mt-0.5 text-xs">{new Date(a.date).toLocaleDateString("zh-CN")}</p>
               </div>
-              <div className="text-right">
-                <p className="text-2xl font-bold text-sky-400">{countdown}</p>
-                <p className="text-xs text-gray-400">天后</p>
+              <div className="ml-3 text-right">
+                <p className="text-2xl font-black text-[#4f8b3b]">{countdown}</p>
+                <p className="farm-muted text-xs">天后</p>
               </div>
             </div>
           );
