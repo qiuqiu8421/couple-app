@@ -53,16 +53,20 @@ export default function AlbumDetail({ albumId }: { albumId: string }) {
     fetchAlbum();
   }
 
-  if (!album) return <div className="pixel-panel p-8 text-center farm-muted">加载中...</div>;
+  if (!album) {
+    return <div className="pixel-panel p-8 text-center farm-muted">加载中...</div>;
+  }
 
   return (
     <div className="space-y-4">
-      <div className="pixel-panel flex items-center gap-3 p-4">
+      <div className="pixel-panel flex flex-wrap items-center gap-3 p-4">
         <Link href="/albums" className="pixel-button pixel-button-secondary h-8 w-8 text-sm">
           ←
         </Link>
         <div className="min-w-0 flex-1">
-          <h2 className="farm-title truncate text-lg">{album.name}</h2>
+          <h2 className="farm-title truncate text-lg">
+            <span className="sdv-object-sprite sdv-object-chest" /> {album.name}
+          </h2>
           {album.description && <p className="farm-muted truncate text-sm">{album.description}</p>}
         </div>
         <button onClick={() => fileRef.current?.click()} className="pixel-button px-3 py-1.5 text-sm">
@@ -83,9 +87,12 @@ export default function AlbumDetail({ albumId }: { albumId: string }) {
       </div>
 
       {album.media.length === 0 ? (
-        <div className="pixel-panel p-12 text-center">
-          <p className="mb-2 text-4xl">🧺</p>
-          <p className="farm-muted text-sm">还没有照片，快去添加吧</p>
+        <div className="pixel-panel sdv-note p-6 text-center">
+          <span className="sdv-object-sprite sdv-object-chest mx-auto mb-2 block" />
+          <div className="mx-auto max-w-56">
+            <p className="farm-title text-base">这个木箱还是空的</p>
+            <p className="farm-muted mt-1 text-sm leading-6">添加照片或视频，把回忆收进来。</p>
+          </div>
         </div>
       ) : (
         <div className="grid grid-cols-3 gap-2">

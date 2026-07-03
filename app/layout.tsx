@@ -4,8 +4,8 @@ import "./globals.css";
 import Providers from "@/components/Providers";
 
 export const metadata: Metadata = {
-  title: "Couple Farm",
-  description: "A private shared farm-style space",
+  title: "秋秋喜欢周周",
+  description: "秋秋和周周的小空间",
 };
 
 export const viewport: Viewport = {

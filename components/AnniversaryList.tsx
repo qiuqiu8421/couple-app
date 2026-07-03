@@ -63,15 +63,19 @@ export default function AnniversaryList() {
     <div className="space-y-4">
       {togetherId && (
         <div className="farm-hero p-6 text-center">
-          <p className="text-sm font-bold text-[#fff2cc]">我们已经在一起</p>
+          <p className="text-sm font-bold text-[#5b2b16]">我们已经在一起</p>
           <p className="my-1 text-5xl font-black">{getDaysTogether(togetherId.date)}</p>
-          <p className="text-sm font-bold text-[#fff2cc]">天了 ❤️</p>
+          <p className="text-sm font-bold text-[#5b2b16]">
+            天了 <span className="sdv-object-sprite sdv-object-heart" />
+          </p>
         </div>
       )}
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-3">
         <div>
-          <h2 className="farm-title text-lg">纪念日日历</h2>
+          <h2 className="farm-title text-lg">
+            <span className="sdv-object-sprite sdv-object-calendar" /> 纪念日日历
+          </h2>
           <p className="farm-muted text-xs">重要日子都种在这里</p>
         </div>
         <button onClick={() => setShowForm(!showForm)} className="pixel-button px-3 py-1.5 text-sm">
@@ -80,7 +84,7 @@ export default function AnniversaryList() {
       </div>
 
       {showForm && (
-        <form onSubmit={handleCreate} className="pixel-panel p-4 space-y-3">
+        <form onSubmit={handleCreate} className="pixel-panel space-y-3 p-4">
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -112,24 +116,34 @@ export default function AnniversaryList() {
         </form>
       )}
 
-      <div className="space-y-3">
-        {anniversaries.map((a) => {
-          const countdown = getCountdown(a.date);
-          return (
-            <div key={a.id} className="pixel-panel-soft flex items-center justify-between p-4">
-              <div className="min-w-0">
-                <p className="truncate font-bold text-[#5e3822]">{a.title}</p>
-                {a.description && <p className="farm-muted mt-0.5 truncate text-xs">{a.description}</p>}
-                <p className="farm-muted mt-0.5 text-xs">{new Date(a.date).toLocaleDateString("zh-CN")}</p>
+      {anniversaries.length === 0 ? (
+        <div className="pixel-panel sdv-note p-6 text-center">
+          <span className="sdv-object-sprite sdv-object-calendar mx-auto mb-2 block" />
+          <div className="mx-auto max-w-56">
+            <p className="farm-title text-base">日历还没有种子</p>
+            <p className="farm-muted mt-1 text-sm leading-6">添加一个纪念日，之后就会在这里倒数。</p>
+          </div>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {anniversaries.map((a) => {
+            const countdown = getCountdown(a.date);
+            return (
+              <div key={a.id} className="pixel-panel-soft flex items-center justify-between p-4">
+                <div className="min-w-0">
+                  <p className="truncate font-bold text-[#5e3822]">{a.title}</p>
+                  {a.description && <p className="farm-muted mt-0.5 truncate text-xs">{a.description}</p>}
+                  <p className="farm-muted mt-0.5 text-xs">{new Date(a.date).toLocaleDateString("zh-CN")}</p>
+                </div>
+                <div className="ml-3 text-right">
+                  <p className="text-2xl font-black text-[#4f8b3b]">{countdown}</p>
+                  <p className="farm-muted text-xs">天后</p>
+                </div>
               </div>
-              <div className="ml-3 text-right">
-                <p className="text-2xl font-black text-[#4f8b3b]">{countdown}</p>
-                <p className="farm-muted text-xs">天后</p>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

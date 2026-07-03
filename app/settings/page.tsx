@@ -49,7 +49,9 @@ export default function SettingsPage() {
           ← 返回
         </button>
         <div>
-          <h1 className="farm-title text-lg">修改密码</h1>
+          <h1 className="farm-title text-lg">
+            <span className="sdv-object-sprite sdv-object-home" /> 修改密码
+          </h1>
           <p className="farm-muted text-xs">给小屋换一把新钥匙</p>
         </div>
       </div>

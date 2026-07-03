@@ -101,18 +101,20 @@ export default function Timeline({ userId }: { userId: string }) {
 
   return (
     <div className="space-y-4">
-      <form onSubmit={handleSubmit} className="pixel-panel p-4 space-y-3">
+      <form onSubmit={handleSubmit} className="pixel-panel space-y-3 p-3 sm:p-4">
         <div className="flex items-center gap-2">
-          <span className="pixel-avatar">✎</span>
+          <span className="pixel-avatar">
+            <span className="sdv-object-sprite sdv-object-parsnip" />
+          </span>
           <div>
             <h2 className="farm-title text-base">农场留言板</h2>
-            <p className="farm-muted text-xs">记录今天的小事</p>
+            <p className="farm-muted text-xs">你好呀</p>
           </div>
         </div>
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          placeholder="写下今天的小确幸..."
+          placeholder="说句话..."
           className="pixel-input min-h-24 resize-none px-3 py-2 text-sm"
           rows={3}
         />
@@ -136,13 +138,13 @@ export default function Timeline({ userId }: { userId: string }) {
             ))}
           </div>
         )}
-        <div className="flex items-center justify-between gap-3">
+        <div className="grid grid-cols-2 items-center gap-2 sm:flex sm:justify-between sm:gap-3">
           <button
             type="button"
             onClick={() => fileRef.current?.click()}
-            className="pixel-button pixel-button-secondary px-3 py-1.5 text-sm"
+            className="pixel-button pixel-button-secondary w-full whitespace-nowrap px-2 py-1.5 text-xs sm:w-auto sm:px-3 sm:text-sm"
           >
-            📎 添加图片/视频
+            <span className="sdv-object-sprite sdv-object-chest" /> 添加图片/视频
           </button>
           <input
             ref={fileRef}
@@ -155,7 +157,7 @@ export default function Timeline({ userId }: { userId: string }) {
           <button
             type="submit"
             disabled={uploading || (!content.trim() && files.length === 0)}
-            className="pixel-button px-4 py-1.5 text-sm"
+            className="pixel-button w-full whitespace-nowrap px-3 py-1.5 text-xs sm:w-auto sm:px-4 sm:text-sm"
           >
             {uploading
               ? uploadProgress.total > 0
@@ -169,11 +171,11 @@ export default function Timeline({ userId }: { userId: string }) {
       {posts.map((post) => {
         const liked = post.likes.some((l) => l.userId === userId);
         return (
-          <div key={post.id} className="pixel-panel-soft p-4 space-y-3">
+          <div key={post.id} className="pixel-panel-soft space-y-3 p-4">
             <div className="flex items-center gap-2">
               <div className="pixel-avatar">{post.author.name[0]}</div>
               <div className="flex-1">
-                <p className="text-sm font-bold text-[#5e3822]">{post.author.name}</p>
+                <p className="text-sm font-bold text-[#5b2b16]">{post.author.name}</p>
                 <p className="farm-muted text-xs">{formatDate(post.createdAt)}</p>
               </div>
               {post.author.id === userId && (
@@ -187,7 +189,7 @@ export default function Timeline({ userId }: { userId: string }) {
               )}
             </div>
 
-            {post.content && <p className="text-sm leading-6 text-[#3f2a18]">{post.content}</p>}
+            {post.content && <p className="text-sm leading-6 text-[#3b1f10]">{post.content}</p>}
 
             {post.media.length > 0 && (
               <div className={`grid gap-2 ${post.media.length === 1 ? "" : "grid-cols-2"}`}>
@@ -206,13 +208,13 @@ export default function Timeline({ userId }: { userId: string }) {
                 onClick={() => handleLike(post.id)}
                 className={`text-sm font-bold transition-colors ${liked ? "text-[#c65b4a]" : "text-[#7b5a3b] hover:text-[#c65b4a]"}`}
               >
-                {liked ? "❤️" : "🤍"} {post._count.likes}
+                <span className="sdv-object-sprite sdv-object-heart" /> {post._count.likes}
               </button>
               <button
                 onClick={() => setShowComments((prev) => ({ ...prev, [post.id]: !prev[post.id] }))}
                 className="text-sm font-bold text-[#7b5a3b] hover:text-[#4f8b3b]"
               >
-                💬 {post._count.comments}
+                留言 {post._count.comments}
               </button>
             </div>
 

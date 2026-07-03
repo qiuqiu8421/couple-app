@@ -1,20 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8e7b9;
-  --foreground: #3f2a18;
-  --farm-sky: #8fd3ff;
-  --farm-sky-deep: #5eb5e7;
-  --farm-grass: #7ebc59;
-  --farm-grass-dark: #4f8b3b;
-  --farm-earth: #9a6236;
-  --farm-earth-dark: #5e3822;
-  --farm-wood: #c78642;
-  --farm-cream: #fff2cc;
-  --farm-paper: #fff7dc;
-  --farm-gold: #f1c84b;
-  --farm-red: #c65b4a;
-  --farm-shadow: rgba(63, 42, 24, 0.28);
+  --background: #121b2b;
+  --foreground: #3b1f10;
+  --stardew-ink: #5b2b16;
+  --stardew-ink-dark: #2a1209;
+  --stardew-wood: #b86f27;
+  --stardew-wood-dark: #6f3519;
+  --stardew-paper: #ffd5a0;
+  --stardew-paper-light: #ffe9bd;
+  --stardew-green: #4b8f35;
+  --stardew-green-light: #82bc45;
+  --stardew-gold: #f6c453;
+  --stardew-red: #b84a37;
+  --stardew-shadow: rgba(42, 18, 9, 0.42);
 }
 
 @theme inline {
@@ -28,6 +27,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: "Trebuchet MS", "Microsoft YaHei", "PingFang SC", Arial, Helvetica, sans-serif;
+  image-rendering: pixelated;
 }
 
 button,
@@ -43,11 +43,9 @@ button {
 .farm-page {
   min-height: 100vh;
   background:
-    linear-gradient(180deg, rgba(143, 211, 255, 0.88) 0 220px, transparent 220px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.18) 1px, transparent 1px),
-    linear-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1px),
-    linear-gradient(180deg, #f8e7b9 0%, #e7c177 52%, #8fbd5a 100%);
-  background-size: auto, 24px 24px, 24px 24px, auto;
+    linear-gradient(180deg, rgba(14, 29, 54, 0.06), rgba(18, 27, 43, 0.35)),
+    url("/stardew/stardew-panorama.png") center top / cover no-repeat fixed,
+    #121b2b;
 }
 
 .farm-page::before {
@@ -56,11 +54,8 @@ button {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at 18% 80px, rgba(255, 255, 255, 0.78) 0 24px, transparent 25px),
-    radial-gradient(circle at 24% 80px, rgba(255, 255, 255, 0.7) 0 18px, transparent 19px),
-    radial-gradient(circle at 76% 120px, rgba(255, 255, 255, 0.62) 0 20px, transparent 21px),
-    linear-gradient(90deg, transparent 0 10px, rgba(94, 56, 34, 0.08) 10px 12px, transparent 12px 24px);
-  background-size: auto, auto, auto, 24px 24px;
+    linear-gradient(180deg, transparent 0 52%, rgba(15, 64, 24, 0.32) 100%),
+    repeating-linear-gradient(90deg, transparent 0 30px, rgba(255, 255, 255, 0.04) 30px 32px);
 }
 
 .farm-shell {
@@ -77,17 +72,41 @@ button {
 }
 
 .pixel-panel {
-  background: var(--farm-paper);
-  border: 3px solid var(--farm-earth-dark);
-  border-radius: 6px;
-  box-shadow: 0 5px 0 var(--farm-shadow), inset 0 0 0 2px rgba(255, 255, 255, 0.38);
+  background:
+    linear-gradient(rgba(255, 228, 174, 0.82), rgba(255, 205, 143, 0.82)),
+    url("/stardew/letter-bg.png") center / cover;
+  border: 16px solid transparent;
+  border-image: url("/stardew/dialog-box-green.png") 42 fill / 16px / 0 stretch;
+  border-radius: 0;
+  box-shadow: 0 8px 0 var(--stardew-shadow);
 }
 
 .pixel-panel-soft {
-  background: rgba(255, 247, 220, 0.94);
-  border: 2px solid rgba(94, 56, 34, 0.58);
-  border-radius: 6px;
-  box-shadow: 0 4px 0 rgba(94, 56, 34, 0.18);
+  background:
+    linear-gradient(rgba(255, 235, 194, 0.9), rgba(255, 210, 154, 0.9)),
+    url("/stardew/letter-bg.png") center / cover;
+  border: 12px solid transparent;
+  border-image: url("/stardew/dialog-box-green.png") 42 fill / 12px / 0 stretch;
+  border-radius: 0;
+  box-shadow: 0 6px 0 rgba(42, 18, 9, 0.28);
+}
+
+@media (max-width: 480px) {
+  .farm-shell {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .pixel-panel {
+    border-width: 10px;
+    border-image: url("/stardew/dialog-box-green.png") 42 fill / 10px / 0 stretch;
+  }
+
+  .pixel-panel-soft,
+  .farm-hero {
+    border-width: 9px;
+    border-image: url("/stardew/dialog-box-green.png") 42 fill / 9px / 0 stretch;
+  }
 }
 
 .pixel-button {
@@ -95,24 +114,25 @@ button {
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
-  background: var(--farm-grass);
-  color: #fff9dc;
-  border: 2px solid var(--farm-earth-dark);
-  border-radius: 4px;
-  box-shadow: 0 3px 0 var(--farm-earth-dark);
+  background: linear-gradient(180deg, var(--stardew-green-light), var(--stardew-green));
+  color: #fff7cc;
+  border: 3px solid var(--stardew-ink);
+  border-radius: 0;
+  box-shadow: 0 4px 0 var(--stardew-ink-dark);
   font-weight: 700;
+  text-shadow: 1px 1px 0 var(--stardew-ink);
   transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
 }
 
 .pixel-button:hover {
   filter: brightness(1.04);
   transform: translateY(-1px);
-  box-shadow: 0 4px 0 var(--farm-earth-dark);
+  box-shadow: 0 5px 0 var(--stardew-ink-dark);
 }
 
 .pixel-button:active {
   transform: translateY(2px);
-  box-shadow: 0 1px 0 var(--farm-earth-dark);
+  box-shadow: 0 1px 0 var(--stardew-ink-dark);
 }
 
 .pixel-button:disabled {
@@ -122,35 +142,37 @@ button {
 }
 
 .pixel-button-secondary {
-  background: var(--farm-wood);
+  background: linear-gradient(180deg, #e18f3d, var(--stardew-wood));
 }
 
 .pixel-button-danger {
-  background: var(--farm-red);
+  background: linear-gradient(180deg, #d66a55, var(--stardew-red));
 }
 
 .pixel-input {
   width: 100%;
-  background: #fff9e6;
-  color: var(--farm-earth-dark);
-  border: 2px solid rgba(94, 56, 34, 0.55);
-  border-radius: 4px;
+  background:
+    linear-gradient(rgba(255, 247, 218, 0.8), rgba(255, 247, 218, 0.8)),
+    url("/stardew/text-box.png") center / 100% 100%;
+  color: var(--stardew-ink);
+  border: 3px solid var(--stardew-wood-dark);
+  border-radius: 0;
   outline: none;
 }
 
 .pixel-input:focus {
-  border-color: var(--farm-grass-dark);
-  box-shadow: 0 0 0 3px rgba(126, 188, 89, 0.25);
+  border-color: var(--stardew-green);
+  box-shadow: 0 0 0 3px rgba(246, 196, 83, 0.34);
 }
 
 .pixel-link {
-  color: var(--farm-earth-dark);
+  color: var(--stardew-ink);
   font-weight: 700;
   transition: color 120ms ease;
 }
 
 .pixel-link:hover {
-  color: var(--farm-grass-dark);
+  color: var(--stardew-green);
 }
 
 .pixel-avatar {
@@ -159,40 +181,91 @@ button {
   justify-content: center;
   width: 2.25rem;
   height: 2.25rem;
-  background: var(--farm-gold);
-  color: var(--farm-earth-dark);
-  border: 2px solid var(--farm-earth-dark);
-  border-radius: 4px;
-  box-shadow: 0 2px 0 rgba(94, 56, 34, 0.34);
+  background: var(--stardew-gold);
+  color: var(--stardew-ink);
+  border: 3px solid var(--stardew-ink);
+  border-radius: 0;
+  box-shadow: 0 3px 0 rgba(42, 18, 9, 0.38);
   font-weight: 800;
 }
 
 .farm-title {
-  color: var(--farm-earth-dark);
+  color: var(--stardew-ink);
   font-weight: 800;
   letter-spacing: 0;
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.55);
+  text-shadow: 1px 1px 0 rgba(255, 239, 184, 0.65);
 }
 
 .farm-muted {
-  color: #7b5a3b;
+  color: #744321;
 }
 
 .farm-hero {
   background:
-    linear-gradient(135deg, rgba(255, 249, 230, 0.22), rgba(255, 249, 230, 0)),
-    linear-gradient(180deg, var(--farm-grass), var(--farm-grass-dark));
-  color: #fff9dc;
-  border: 3px solid var(--farm-earth-dark);
-  border-radius: 6px;
-  box-shadow: 0 5px 0 var(--farm-shadow);
+    linear-gradient(rgba(255, 231, 176, 0.58), rgba(255, 196, 105, 0.42)),
+    url("/stardew/junimo-note.png") center / cover;
+  color: var(--stardew-ink);
+  border: 16px solid transparent;
+  border-image: url("/stardew/dialog-box-green.png") 42 fill / 16px / 0 stretch;
+  border-radius: 0;
+  box-shadow: 0 8px 0 var(--stardew-shadow);
 }
 
 .pixel-media-tile {
   background:
-    linear-gradient(45deg, rgba(94, 56, 34, 0.12) 25%, transparent 25% 75%, rgba(94, 56, 34, 0.12) 75%),
-    #ead39b;
-  background-size: 16px 16px;
-  border: 2px solid rgba(94, 56, 34, 0.45);
-  border-radius: 4px;
+    linear-gradient(rgba(255, 236, 176, 0.18), rgba(255, 236, 176, 0.18)),
+    url("/stardew/spring-objects.png") center / 384px 544px,
+    #4f8f36;
+  border: 3px solid var(--stardew-ink);
+  border-radius: 0;
+  image-rendering: auto;
+}
+
+.sdv-nav {
+  background:
+    linear-gradient(180deg, rgba(255, 206, 108, 0.94), rgba(178, 95, 33, 0.96)),
+    url("/stardew/text-box.png") center / 192px 48px repeat;
+  border-bottom: 4px solid var(--stardew-ink-dark);
+}
+
+.sdv-bottom-nav {
+  background:
+    linear-gradient(rgba(255, 231, 176, 0.92), rgba(255, 202, 128, 0.92)),
+    url("/stardew/text-box.png") center / 192px 48px repeat;
+  border-top: 4px solid var(--stardew-ink-dark);
+}
+
+.sdv-note {
+  background:
+    linear-gradient(rgba(255, 232, 176, 0.75), rgba(255, 232, 176, 0.75)),
+    url("/stardew/junimo-note.png") center / cover;
+}
+
+.sdv-object-sprite {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background: center / contain no-repeat;
+  image-rendering: pixelated;
+  vertical-align: -5px;
+}
+
+.sdv-object-parsnip {
+  background-image: url("/stardew/icon-leaf.png");
+}
+
+.sdv-object-heart {
+  background-image: url("/stardew/icon-heart.png");
+}
+
+.sdv-object-chest {
+  background-image: url("/stardew/icon-album.png");
+}
+
+.sdv-object-home {
+  background-image: url("/stardew/icon-home.png");
+}
+
+.sdv-object-calendar {
+  background-image: url("/stardew/icon-calendar.png");
 }

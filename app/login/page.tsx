@@ -34,8 +34,10 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center px-4 py-8">
       <div className="pixel-panel w-full max-w-sm p-6">
-        <h1 className="farm-title mb-2 text-center text-2xl">🌾 Couple Farm</h1>
-        <p className="farm-muted mb-6 text-center text-sm">我们的小农场</p>
+        <h1 className="farm-title mb-2 text-center text-2xl">
+          <span className="sdv-object-sprite sdv-object-parsnip" /> 秋秋喜欢周周
+        </h1>
+        <p className="farm-muted mb-6 text-center text-sm">你好呀</p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>

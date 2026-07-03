@@ -48,9 +48,11 @@ export default function AlbumList() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-3">
         <div>
-          <h2 className="farm-title text-lg">相册谷仓</h2>
+          <h2 className="farm-title text-lg">
+            <span className="sdv-object-sprite sdv-object-chest" /> 相册谷仓
+          </h2>
           <p className="farm-muted text-xs">把照片收进小木箱</p>
         </div>
         <button onClick={() => setShowForm(!showForm)} className="pixel-button px-3 py-1.5 text-sm">
@@ -59,7 +61,7 @@ export default function AlbumList() {
       </div>
 
       {showForm && (
-        <form onSubmit={handleCreate} className="pixel-panel p-4 space-y-3">
+        <form onSubmit={handleCreate} className="pixel-panel space-y-3 p-4">
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -84,38 +86,48 @@ export default function AlbumList() {
         </form>
       )}
 
-      <div className="grid grid-cols-2 gap-3">
-        {albums.map((album) => (
-          <div key={album.id} className="relative">
-            <Link href={`/albums/${album.id}`}>
-              <div className="pixel-panel-soft overflow-hidden transition-transform hover:-translate-y-0.5">
-                <div className="pixel-media-tile flex h-32 items-center justify-center overflow-hidden border-0">
-                  {album.media[0] ? (
-                    album.media[0].type === "video" ? (
-                      <video src={album.media[0].url} className="h-full w-full object-cover" />
-                    ) : (
-                      <img src={album.media[0].url} alt="" className="h-full w-full object-cover" />
-                    )
-                  ) : (
-                    <span className="text-4xl">🧺</span>
-                  )}
-                </div>
-                <div className="p-3">
-                  <p className="truncate text-sm font-bold text-[#5e3822]">{album.name}</p>
-                  <p className="farm-muted text-xs">{album._count.media} 张</p>
-                </div>
-              </div>
-            </Link>
-            <button
-              onClick={(e) => handleDelete(album.id, e)}
-              className="pixel-button pixel-button-danger absolute right-2 top-2 h-6 w-6 text-sm"
-              title="删除相册"
-            >
-              ×
-            </button>
+      {albums.length === 0 ? (
+        <div className="pixel-panel sdv-note p-6 text-center">
+          <span className="sdv-object-sprite sdv-object-chest mx-auto mb-2 block" />
+          <div className="mx-auto max-w-56">
+            <p className="farm-title text-base">谷仓还是空的</p>
+            <p className="farm-muted mt-1 text-sm leading-6">新建一个相册，把照片放进来。</p>
           </div>
-        ))}
-      </div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-3">
+          {albums.map((album) => (
+            <div key={album.id} className="relative">
+              <Link href={`/albums/${album.id}`}>
+                <div className="pixel-panel-soft overflow-hidden transition-transform hover:-translate-y-0.5">
+                  <div className="pixel-media-tile flex h-32 items-center justify-center overflow-hidden border-0">
+                    {album.media[0] ? (
+                      album.media[0].type === "video" ? (
+                        <video src={album.media[0].url} className="h-full w-full object-cover" />
+                      ) : (
+                        <img src={album.media[0].url} alt="" className="h-full w-full object-cover" />
+                      )
+                    ) : (
+                      <span className="sdv-object-sprite sdv-object-chest scale-150" />
+                    )}
+                  </div>
+                  <div className="p-3">
+                    <p className="truncate text-sm font-bold text-[#5e3822]">{album.name}</p>
+                    <p className="farm-muted text-xs">{album._count.media} 张</p>
+                  </div>
+                </div>
+              </Link>
+              <button
+                onClick={(e) => handleDelete(album.id, e)}
+                className="pixel-button pixel-button-danger absolute right-2 top-2 h-6 w-6 text-sm"
+                title="删除相册"
+              >
+                ×
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

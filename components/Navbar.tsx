@@ -8,17 +8,17 @@ export default function Navbar({ userName }: { userName: string }) {
   const pathname = usePathname();
 
   const links = [
-    { href: "/", label: "小屋", icon: "🏡" },
-    { href: "/albums", label: "相册", icon: "🖼️" },
-    { href: "/anniversaries", label: "日历", icon: "🌻" },
+    { href: "/", label: "小屋", iconClass: "sdv-object-home" },
+    { href: "/albums", label: "相册", iconClass: "sdv-object-chest" },
+    { href: "/anniversaries", label: "日历", iconClass: "sdv-object-calendar" },
   ];
 
   return (
     <>
-      <nav className="sticky top-0 z-10 border-b-4 border-[#5e3822] bg-[#c78642]/95 shadow-[0_4px_0_rgba(63,42,24,0.25)] backdrop-blur-sm">
+      <nav className="sdv-nav sticky top-0 z-10 shadow-[0_4px_0_rgba(42,18,9,0.28)]">
         <div className="mx-auto flex max-w-2xl items-center justify-between px-4 py-3">
-          <span className="farm-title text-lg text-[#fff2cc] [text-shadow:2px_2px_0_#5e3822]">
-            🌾 Couple Farm
+          <span className="farm-title text-lg text-[#fff2cc] [text-shadow:2px_2px_0_#2a1209]">
+            <span className="sdv-object-sprite sdv-object-parsnip" /> 秋秋喜欢周周
           </span>
           <div className="flex items-center gap-3">
             <div className="hidden items-center gap-4 sm:flex">
@@ -28,25 +28,25 @@ export default function Navbar({ userName }: { userName: string }) {
                   href={link.href}
                   className={`rounded px-2 py-1 text-sm font-bold transition-colors ${
                     pathname === link.href
-                      ? "bg-[#fff2cc] text-[#5e3822]"
-                      : "text-[#fff9dc] hover:bg-[#a96d36]"
+                      ? "bg-[#fff2cc] text-[#5b2b16] shadow-[inset_0_-2px_0_rgba(42,18,9,0.22)]"
+                      : "text-[#fff9dc] hover:bg-[#8f4a22]"
                   }`}
                 >
-                  {link.icon} {link.label}
+                  <span className={`sdv-object-sprite ${link.iconClass}`} /> {link.label}
                 </Link>
               ))}
             </div>
-            <span className="hidden text-sm font-bold text-[#fff9dc] sm:inline">{userName}</span>
+            <span className="hidden text-sm font-bold text-[#fff9dc] [text-shadow:1px_1px_0_#2a1209] sm:inline">{userName}</span>
             <Link
               href="/settings"
               title="修改密码"
-              className="hidden rounded border-2 border-[#5e3822] bg-[#fff2cc] px-2 py-1 text-xs font-bold text-[#5e3822] shadow-[0_2px_0_#5e3822] hover:bg-white sm:inline-block"
+              className="hidden border-2 border-[#2a1209] bg-[#fff2cc] px-2 py-1 text-xs font-bold text-[#5b2b16] shadow-[0_2px_0_#2a1209] hover:bg-white sm:inline-block"
             >
               改密码
             </Link>
             <button
               onClick={() => signOut({ callbackUrl: "/login" })}
-              className="rounded border-2 border-[#5e3822] bg-[#fff2cc] px-2 py-1 text-xs font-bold text-[#5e3822] shadow-[0_2px_0_#5e3822] hover:bg-white"
+              className="border-2 border-[#2a1209] bg-[#fff2cc] px-2 py-1 text-xs font-bold text-[#5b2b16] shadow-[0_2px_0_#2a1209] hover:bg-white"
             >
               退出
             </button>
@@ -54,7 +54,7 @@ export default function Navbar({ userName }: { userName: string }) {
         </div>
       </nav>
 
-      <div className="fixed bottom-0 left-0 right-0 z-10 border-t-4 border-[#5e3822] bg-[#fff2cc] shadow-[0_-4px_0_rgba(63,42,24,0.18)] sm:hidden">
+      <div className="sdv-bottom-nav fixed bottom-0 left-0 right-0 z-10 shadow-[0_-4px_0_rgba(42,18,9,0.22)] sm:hidden">
         <div className="flex">
           {links.map((link) => (
             <Link
@@ -64,7 +64,7 @@ export default function Navbar({ userName }: { userName: string }) {
                 pathname === link.href ? "bg-[#7ebc59] text-white" : "text-[#5e3822]"
               }`}
             >
-              <span className="text-xl">{link.icon}</span>
+              <span className={`sdv-object-sprite ${link.iconClass}`} />
               <span>{link.label}</span>
             </Link>
           ))}
@@ -74,7 +74,7 @@ export default function Navbar({ userName }: { userName: string }) {
               pathname === "/settings" ? "bg-[#7ebc59] text-white" : "text-[#5e3822]"
             }`}
           >
-            <span className="text-xl">⚙️</span>
+            <span className="sdv-object-sprite sdv-object-home" />
             <span>设置</span>
           </Link>
         </div>
